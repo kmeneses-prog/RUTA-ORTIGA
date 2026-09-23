@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruta Ortiga</title>
+<style>
+  :root{
+    --verde:#3A6B35; --verde2:#4E8752;
+    --ambar:#EAA023; --ambar2:#F07818;
+    --fondo:#F4F5F0; --card:#FFFFFF;
+    --texto:#2B2B2B; --rojo:#D93838;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:inherit}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --fondo:#16201a; --card:#1f2b23; --texto:#EDEFE9;
+    }
+  }
+  :root[data-theme="dark"]{
+    --fondo:#16201a; --card:#1f2b23; --texto:#EDEFE9;
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px)}
+  body{
+    margin:0; background:var(--fondo); color:var(--texto);
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    min-height:100%;
+  }
+  header{
+    padding:28px 20px 18px; text-align:center;
+    background:linear-gradient(180deg,var(--verde),var(--verde2));
+    color:#fff; position:relative; overflow:hidden;
+  }
+  header h1{
+    margin:0; font-size:clamp(1.6rem,6vw,2.4rem);
+    font-weight:800; letter-spacing:-0.5px;
+  }
+  header p{margin:6px 0 0; opacity:.9; font-size:.95rem}
+  nav{
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+    padding:14px 12px; background:var(--card);
+    border-bottom:1px solid rgba(0,0,0,.08);
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:10;
+  }
+  nav button{
+    border:2px solid var(--verde); background:transparent;
+    color:var(--verde); font-weight:600; padding:8px 14px;
+    border-radius:999px; cursor:pointer; font-size:.85rem;
+    transition:background .15s,color .15s;
+  }
+  nav button.active, nav button:hover{
+    background:var(--verde); color:#fff;
+  }
+  main{max-width:900px; margin:0 auto; padding:22px 18px 60px}
+  section{display:none; animation:fade .25s ease}
+  section.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h2{
+    color:var(--verde); font-size:1.5rem; margin:0 0 4px;
+    border-left:5px solid var(--ambar); padding-left:12px;
+  }
+  .sub{color:var(--texto); opacity:.75; margin:0 0 20px; padding-left:17px; font-size:.9rem}
+  .card{
+    background:var(--card); border-radius:14px; padding:16px 18px;
+    margin-bottom:14px; box-shadow:0 1px 4px rgba(0,0,0,.06);
+  }
+  .card h3{margin:0 0 6px; font-size:1.02rem; color:var(--verde2)}
+  .card p{margin:0; line-height:1.5; font-size:.93rem}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px}
+  .foda{border-top:5px solid var(--verde)}
+  .foda.op{border-top-color:var(--ambar)}
+  .foda.de{border-top-color:#8a8a8a}
+  .foda.am{border-top-color:var(--rojo)}
+  .persona{border-left:4px solid var(--ambar)}
+  .persona .meta{font-size:.8rem; opacity:.7; margin-bottom:6px}
+  .persona blockquote{
+    margin:8px 0 0; font-style:italic; color:var(--verde2); font-size:.88rem;
+    border-left:2px solid var(--verde2); padding-left:8px;
+  }
+  .swatch{display:inline-block; width:22px; height:22px; border-radius:6px; vertical-align:middle; margin-right:6px}
+  .paleta span{display:inline-flex; align-items:center; margin:4px 12px 4px 0; font-size:.85rem}
+  ul.tight{margin:4px 0 0; padding-left:18px; font-size:.93rem; line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+  <h1>🌿 Ruta Ortiga</h1>
+  <p>Valle del Ortigal · Popayán, Cauca</p>
+</header>
+
+<nav id="nav"></nav>
+<main id="main"></main>
+
+<script>
+const secciones = [
+  {id:"contexto", label:"Contexto", title:"Contexto y problemática",
+   sub:"Punto de partida de la investigación",
+   html:`
+    <div class="card"><h3>Problemática</h3><p>La estigmatización de inseguridad y la falta de visibilidad del comercio local e historias de vida dentro del Barrio Valle del Ortigal, lo que limita el reconocimiento de sus emprendimientos y la apropiación comunitaria.</p></div>
+    <div class="card"><h3>¿Para quién?</h3><p>Habitantes del Barrio Valle del Ortigal y clientes del comercio local en Popayán.</p></div>
+    <div class="card"><h3>Necesidad</h3><p>Dignificar la imagen del barrio, conectar a habitantes y visitantes con su verdadero ecosistema comercial/social y generar mecanismos atractivos de apropiación territorial.</p></div>
+    <div class="card"><h3>Incertidumbre</h3><p>¿Cómo transformar la narrativa de un territorio etiquetado como inseguro en una experiencia digital segura, inmersiva y de valor cultural/comercial sin perder la esencia real de la comunidad?</p></div>
+    <div class="card"><h3>¿Qué / Cómo / Por qué?</h3><p><b>Qué:</b> plataforma web que combina recorridos 360°, minimapa HUD estilo videojuego y narrativa documental.<br><b>Cómo:</b> interfaz con navegación 360° desde la Glorieta/Torres, convenciones tipo Google Maps, tarjetas de rol con retratos editoriales y relatos que desbloquean accesorios.<br><b>Por qué:</b> el diseño interactivo y la fotografía visibilizan la memoria, cambian narrativas estigmatizadas y potencian la economía local.</p></div>
+   `},
+
+  {id:"foda", label:"FODA", title:"Análisis FODA",
+   sub:"Diagnóstico interno y externo del proyecto",
+   html:`
+    <div class="grid">
+      <div class="card foda"><h3>Fortalezas</h3><ul class="tight">
+        <li>Fusión de navegación 360° tipo Street View con elementos RPG (minimapa, tarjetas de personaje, inventario)</li>
+        <li>Paleta cromática propia: verdes de ortiga y tonos cálidos/tierra</li>
+        <li>Registro editorial de GO STUDIO que dignifica el entorno y a los comerciantes</li>
+        <li>Enfoque conceptual de "resistencia viva": la botánica local ligada a la resiliencia del barrio</li>
+      </ul></div>
+      <div class="card foda op"><h3>Oportunidades</h3><ul class="tight">
+        <li>Destigmatización social mediante narrativas comunitarias</li>
+        <li>Vitrina digital interactiva para comercio y artesanos</li>
+        <li>Modelo de UI/UX escalable a otros territorios</li>
+        <li>Relevancia académica en diseño, tecnología y memoria</li>
+      </ul></div>
+      <div class="card foda de"><h3>Debilidades</h3><ul class="tight">
+        <li>Alto peso técnico por el renderizado de fotos 360°</li>
+        <li>Mantenimiento continuo de contenidos</li>
+        <li>Curva de aprendizaje para quienes no usan interfaces de juego</li>
+      </ul></div>
+      <div class="card foda am"><h3>Amenazas</h3><ul class="tight">
+        <li>Volatilidad del comercio local (locales que cierran o se trasladan)</li>
+        <li>Desconfianza o brecha de conectividad en el territorio</li>
+      </ul></div>
+    </div>
+   `},
+
+  {id:"usuarios", label:"Usuarios", title:"Arquetipos de usuarios",
+   sub:"Comerciantes y líderes del Valle del Ortigal",
+   html:`
+    <div class="grid">
+      <div class="card persona"><h3>Doña Gloria · 58</h3><div class="meta">Presidenta de la JAC y dueña de miscelánea</div>
+        <p>Bachiller empírica, viuda. Objetivo: visibilizar las dinámicas culturales del sector.</p>
+        <blockquote>"Nuestra lucha no es solo por tener mejores calles, es por devolver la dignidad a la gente que vive aquí."</blockquote></div>
+
+      <div class="card persona"><h3>Sonia Liliana · "La Solucionadora"</h3><div class="meta">Miscelánea, papelería, fotos y soporte técnico · 13 años en el barrio</div>
+        <p>Usa WhatsApp y avisos físicos. Necesita un catálogo de trámites y botón directo a chat.</p></div>
+
+      <div class="card persona"><h3>Ricardo Caicedo</h3><div class="meta">Barbería / estética masculina · 12 años en el barrio</div>
+        <p>Punto de encuentro juvenil. Necesita agendamiento de citas en tiempo real.</p></div>
+
+      <div class="card persona"><h3>Yaneth "La Flaca" · "La Pionera"</h3><div class="meta">La Sazón de la Flaca, gastronomía · hito urbano Manzana 12</div>
+        <p>Contenido viral en TikTok. Necesita catálogo gastronómico y pedidos por WhatsApp.</p></div>
+
+      <div class="card persona"><h3>José Darío Solís</h3><div class="meta">Zapatería artesanal · ~13 años, sin apps</div>
+        <p>Preservador de memoria histórica. Necesita cápsula documental, sin gestión digital activa.</p></div>
+
+      <div class="card persona"><h3>Valentina · 26</h3><div class="meta">Valen Nails Estudio</div>
+        <p>Técnica en cosmetología (SENA). Busca posicionarse como referente de tendencias.</p>
+        <blockquote>"Mi estudio es pequeño pero mis diseños son grandes."</blockquote></div>
+
+      <div class="card persona"><h3>Doña Rosa · 68</h3><div class="meta">Tendera y agricultora urbana</div>
+        <p>Punto de interés cultural y soberanía alimentaria; no administra la app directamente.</p>
+        <blockquote>"El secreto de la salud está en la tierra."</blockquote></div>
+
+      <div class="card persona"><h3>Brayan · 22</h3><div class="meta">Urban Stile Barber Shop</div>
+        <p>Nativo digital. Quiere reducir tiempos de espera y proyectar imagen profesional.</p></div>
+    </div>
+   `},
+
+  {id:"concepto", label:"Concepto", title:"Concepto visual",
+   sub:"Efecto Infusión, paleta y referentes",
+   html:`
+    <div class="card"><h3>Metáfora: Efecto Infusión</h3><p>La ortiga silvestre genera rechazo (urticaria), igual que el estigma de inseguridad sobre el barrio. Infusionada, es curativa y reconstituyente. Ruta Ortiga es esa infusión: transforma el prejuicio en valor comercial, memoria territorial y calidez comunitaria.</p></div>
+    <div class="card"><h3>Paleta</h3><div class="paleta">
+        <span><i class="swatch" style="background:#3A6B35"></i>#3A6B35</span>
+        <span><i class="swatch" style="background:#4E8752"></i>#4E8752</span>
+        <span><i class="swatch" style="background:#EAA023"></i>#EAA023</span>
+        <span><i class="swatch" style="background:#F07818"></i>#F07818</span>
+        <span><i class="swatch" style="background:#F4F5F0;border:1px solid #ccc"></i>#F4F5F0</span>
+        <span><i class="swatch" style="background:#2B2B2B"></i>#2B2B2B</span>
+        <span><i class="swatch" style="background:#D93838"></i>#D93838</span>
+    </div></div>
+    <div class="card"><h3>Estilo gráfico</h3><p>3D estilizado tipo figura de vinilo sobre geometría 2D plana, iluminación suave de estudio y rim lighting; tallos y hojas de ortiga como conectores y marcos.</p></div>
+    <div class="card"><h3>Referentes</h3><ul class="tight">
+      <li><b>Google Chrome:</b> onboarding simple — crear perfil o explorar sin registro</li>
+      <li><b>Pregoneros de Medellín:</b> fotos panorámicas 360°, audio ambiente e historias reales — referente principal del enfoque documental</li>
+      <li><b>GTA:</b> interfaz de videojuego que se navega por instinto</li>
+      <li><b>Disco Elysium:</b> retrato y rol conectados a un sistema visual de equipamiento claro</li>
+    </ul></div>
+   `},
+
+  {id:"prototipo", label:"Prototipo", title:"La plataforma",
+   sub:"Cómo funciona la experiencia",
+   html:`
+    <div class="card"><h3>Las 5W</h3><ul class="tight">
+      <li><b>Quién:</b> comunidad del barrio, comerciantes, líderes, jóvenes, visitantes, personas que creen el barrio inseguro</li>
+      <li><b>Qué:</b> plataforma inmersiva con mapeo interactivo y narrativo</li>
+      <li><b>Dónde:</b> Valle del Ortigal (Glorieta, Torres, casas, espacios públicos) — web para celular, tableta o PC</li>
+      <li><b>Cuándo:</b> activa 24/7, como un directorio vivo</li>
+      <li><b>Por qué:</b> derribar el estigma social y fortalecer la identidad local</li>
+    </ul></div>
+    <div class="card"><h3>Flujo de interfaz</h3><p>Inicio con registro o acceso como invitado → historial de exploración si hay registro → mascota que desbloquea atuendos al conocer historias → recorrido del barrio en simulación 360°.</p></div>
+    <div class="card"><h3>Requerimientos transversales</h3><ul class="tight">
+      <li>Cápsulas documentales de memoria histórica</li>
+      <li>Arquitectura "WhatsApp first": la conversión siempre redirige a WhatsApp/llamada</li>
+      <li>Navegación 360° por hitos urbanos con HUD de videojuego</li>
+      <li>Optimizado para bajo consumo de datos y gama baja/media</li>
+    </ul></div>
+   `},
+
+  {id:"emprendimiento", label:"Emprendimiento", title:"De trabajo de grado a emprendimiento",
+   sub:"Punto de partida y siguientes pasos",
+   html:`
+    <div class="card"><h3>Punto de partida: GO STUDIO</h3><p>El estudio de fotografía GO STUDIO aporta un flujo comercial ya probado (WhatsApp-first), capacidad para producir las cápsulas documentales y disciplina de identidad visual reutilizable para Ruta Ortiga.</p></div>
+    <div class="card"><h3>Validación con la comunidad</h3><p>Presentar el proyecto en las reuniones de la Junta de Acción Comunal, aprovechando esas convocatorias para tomar fotos y hacer entrevistas que alimenten el repositorio de tarjetas de personaje.</p></div>
+    <div class="card"><h3>Próximos pasos</h3><ul class="tight">
+      <li>Definir modelo de ingresos (comisión, cuota, aliados institucionales)</li>
+      <li>Elegir un MVP para validar con los primeros comerciantes</li>
+      <li>Evaluar constitución legal del emprendimiento</li>
+    </ul></div>
+   `}
+];
+
+const nav = document.getElementById('nav');
+const main = document.getElementById('main');
+
+secciones.forEach((s,i)=>{
+  const btn = document.createElement('button');
+  btn.textContent = s.label;
+  btn.dataset.id = s.id;
+  btn.onclick = () => mostrar(s.id);
+  nav.appendChild(btn);
+
+  const sec = document.createElement('section');
+  sec.id = s.id;
+  sec.innerHTML = `<h2>${s.title}</h2><p class="sub">${s.sub}</p>${s.html}`;
+  main.appendChild(sec);
+});
+
+function mostrar(id){
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active', b.dataset.id===id));
+  document.querySelectorAll('main section').forEach(s=>s.classList.toggle('active', s.id===id));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+mostrar(secciones[0].id);
+</script>
+</body>
+</html>
